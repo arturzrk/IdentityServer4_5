@@ -1,7 +1,7 @@
-# Important update
-This project is not maintained anymore. This repo will be archived when .NET Core 3.1 end of support is reached (13th Dec 2022). All new development is happening in the new [Duende Software](https://github.com/duendesoftware) organization. 
+# Project Info
 
-See [here](https://duendesoftware.com/products/identityserver) for more details.
+This project is a fork of not mainained IdentityServer4 . 
+Te=he initial goal of the fork is to upgrade .NEtto use the .NET 8 SDK.
 
 ## About IdentityServer4
 [<img align="right" width="100px" src="https://dotnetfoundation.org/img/logo_big.svg" />](https://dotnetfoundation.org/projects?searchquery=IdentityServer&type=project)
@@ -18,7 +18,7 @@ Active development happens on the main branch. This always contains the latest v
 
 ## How to build
 
-* [Install](https://www.microsoft.com/net/download/core#/current) the latest .NET Core 3.1 SDK
+* [Install](https://www.microsoft.com/net/download/core#/current) the latest .NET 8 SDK
 * Install Git
 * Clone this repo
 * Run `build.ps1` or `build.sh` in the root of the cloned repo

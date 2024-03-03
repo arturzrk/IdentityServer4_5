@@ -222,7 +222,6 @@ namespace IdentityServer4.Extensions
             return url + query;
         }
 
-        [DebuggerStepThrough]
         public static NameValueCollection ReadQueryStringAsNameValueCollection(this string url)
         {
             if (url != null)

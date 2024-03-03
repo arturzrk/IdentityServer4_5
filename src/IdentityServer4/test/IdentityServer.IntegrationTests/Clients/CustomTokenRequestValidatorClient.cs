@@ -3,7 +3,9 @@
 
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using IdentityModel.Client;
@@ -43,7 +45,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
                 Scope = "api1"
             });
-
+            
             var fields = GetFields(response);
             fields.Should().Contain("custom", "custom");
         }
@@ -119,7 +121,9 @@ namespace IdentityServer.IntegrationTests.Clients
 
         private Dictionary<string, object> GetFields(TokenResponse response)
         {
-            return response.Json.ToObject<Dictionary<string, object>>();
+            return JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(response.Json)
+                .Select(i => new KeyValuePair<string, object>(i.Key, i.Value.ToPrimitiveType()))
+                .ToDictionary();
         }
     }
 }

@@ -216,8 +216,8 @@ namespace IdentityServer.UnitTests.ResponseHandling
 
             Func<Task> act = () => _subject.ProcessAsync(result);
 
-            act.Should().Throw<InvalidOperationException>()
-                .And.Message.Should().Contain("subject");
+            act.Should().ThrowAsync<InvalidOperationException>()
+                .Where(e=> e.Message.Contains("subject"));
         }
 
     }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4.Configuration;
@@ -210,6 +211,9 @@ namespace IdentityServer4.Validation
                             break;
                         case JArray jarr:
                             payload.Add(key, jarr.ToString(Formatting.None));
+                            break;
+                        case JsonElement jelement:
+                            payload.Add(key, jelement.ToString());
                             break;
                     }
                 }

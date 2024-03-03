@@ -25,7 +25,7 @@ namespace IdentityServer.UnitTests.Validation.AuthorizeRequest_Validation
 
             Func<Task> act = () => validator.ValidateAsync(null);
 
-            act.Should().Throw<ArgumentNullException>();
+            act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]

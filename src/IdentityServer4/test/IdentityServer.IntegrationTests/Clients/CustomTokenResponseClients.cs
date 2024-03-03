@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using IdentityModel;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace IdentityServer.IntegrationTests.Clients
 {
@@ -62,7 +64,7 @@ namespace IdentityServer.IntegrationTests.Clients
             fields.TryGetValue("token_type", out temp).Should().BeTrue();
             fields.TryGetValue("expires_in", out temp).Should().BeTrue();
 
-            var responseObject = fields["dto"] as JObject;
+            var responseObject = (JsonElement)fields["dto"];
             responseObject.Should().NotBeNull();
 
             var responseDto = GetDto(responseObject);
@@ -127,7 +129,7 @@ namespace IdentityServer.IntegrationTests.Clients
             fields.TryGetValue("token_type", out temp).Should().BeFalse();
             fields.TryGetValue("expires_in", out temp).Should().BeFalse();
 
-            var responseObject = fields["dto"] as JObject;
+            var responseObject = (JsonElement)fields["dto"];
             responseObject.Should().NotBeNull();
 
             var responseDto = GetDto(responseObject);
@@ -181,7 +183,7 @@ namespace IdentityServer.IntegrationTests.Clients
             fields.TryGetValue("token_type", out temp).Should().BeTrue();
             fields.TryGetValue("expires_in", out temp).Should().BeTrue();
 
-            var responseObject = fields["dto"] as JObject;
+            var responseObject = (JsonElement)fields["dto"];
             responseObject.Should().NotBeNull();
 
             var responseDto = GetDto(responseObject);
@@ -252,7 +254,7 @@ namespace IdentityServer.IntegrationTests.Clients
             fields.TryGetValue("token_type", out temp).Should().BeFalse();
             fields.TryGetValue("expires_in", out temp).Should().BeFalse();
 
-            var responseObject = fields["dto"] as JObject;
+            var responseObject = (JsonElement)fields["dto"];
             responseObject.Should().NotBeNull();
 
             var responseDto = GetDto(responseObject);
@@ -274,14 +276,16 @@ namespace IdentityServer.IntegrationTests.Clients
             response.RefreshToken.Should().BeNull();
         }
 
-        private CustomResponseDto GetDto(JObject responseObject)
+        private CustomResponseDto GetDto(JsonElement responseObject)
         {
-            return responseObject.ToObject<CustomResponseDto>();
+            return responseObject.Deserialize<CustomResponseDto>();
         }
 
         private Dictionary<string, object> GetFields(TokenResponse response)
         {
-            return response.Json.ToObject<Dictionary<string, object>>();
+            return JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(response.Json)
+                .Select(i => new KeyValuePair<string, object>(i.Key, i.Value.ToPrimitiveType()))
+                .ToDictionary();
         }
 
         private Dictionary<string, object> GetPayload(TokenResponse response)

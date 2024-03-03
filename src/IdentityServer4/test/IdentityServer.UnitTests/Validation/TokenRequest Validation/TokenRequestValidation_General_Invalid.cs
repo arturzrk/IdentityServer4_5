@@ -31,7 +31,7 @@ namespace IdentityServer.UnitTests.Validation.TokenRequest_Validation
 
             Func<Task> act = () => validator.ValidateRequestAsync(null, null);
 
-            act.Should().Throw<ArgumentNullException>();
+            act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace IdentityServer.UnitTests.Validation.TokenRequest_Validation
 
             Func<Task> act = () => validator.ValidateRequestAsync(parameters, null);
 
-            act.Should().Throw<ArgumentNullException>();
+            act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]

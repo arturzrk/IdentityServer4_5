@@ -180,7 +180,10 @@ namespace IdentityServer.IntegrationTests.Common
         }
 
         public bool LoginWasCalled { get; set; }
-        public AuthorizationRequest LoginRequest { get; set; }
+        public AuthorizationRequest LoginRequest {
+            get; 
+            set; 
+        }
         public ClaimsPrincipal Subject { get; set; }
         public bool FollowLoginReturnUrl { get; set; }
 
@@ -332,7 +335,7 @@ namespace IdentityServer.IntegrationTests.Common
                 responseMode: responseMode,
                 codeChallenge: codeChallenge,
                 codeChallengeMethod: codeChallengeMethod,
-                extra: extra);
+                extra: (Parameters.FromObject(extra)));
             return url;
         }
 

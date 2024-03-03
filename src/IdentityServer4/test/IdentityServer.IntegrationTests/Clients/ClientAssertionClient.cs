@@ -74,7 +74,8 @@ namespace IdentityServer.IntegrationTests.Clients
                     Value = token
                 },
 
-                Scope = "api1"
+                Scope = "api1",
+                ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
             AssertValidToken(response);
@@ -96,7 +97,8 @@ namespace IdentityServer.IntegrationTests.Clients
                     Value = token
                 },
 
-                Scope = "api1"
+                Scope = "api1",
+                ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
             AssertValidToken(response);
@@ -118,7 +120,8 @@ namespace IdentityServer.IntegrationTests.Clients
                     Value = token
                 },
 
-                Scope = "api1"
+                Scope = "api1",
+                ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
             AssertValidToken(response);
@@ -135,7 +138,8 @@ namespace IdentityServer.IntegrationTests.Clients
                     Value = token
                 },
 
-                Scope = "api1"
+                Scope = "api1",
+                ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
             response.IsError.Should().BeTrue();
@@ -156,7 +160,8 @@ namespace IdentityServer.IntegrationTests.Clients
                     Value = "invalid"
                 },
 
-                Scope = "api1"
+                Scope = "api1",
+                ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
             response.IsError.Should().Be(true);
@@ -181,7 +186,8 @@ namespace IdentityServer.IntegrationTests.Clients
                     Value = token
                 },
 
-                Scope = "api1"
+                Scope = "api1",
+                ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
             response.IsError.Should().Be(true);
