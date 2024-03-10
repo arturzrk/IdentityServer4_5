@@ -21,3 +21,13 @@ steps:
   displayName: 'Build Identity Server nuget packages'
   inputs:
     filePath: './build.ps1'
+
+- task: PublishBuildArtifacts@1
+- task: NuGetAuthenticate@1
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '96863222-b952-4fd2-911c-dcc563bef63d'
