@@ -16,7 +16,8 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  displayName: 'Install nuget tool'
 - task: PowerShell@2
-  displayName: 'Build nuget packages'
+  displayName: 'Build Identity Server nuget packages'
   inputs:
     filePath: './build.ps1'
