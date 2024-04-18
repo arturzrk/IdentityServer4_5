@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using IdentityServer4.Models;
 
 #pragma warning disable 1591
 
@@ -26,6 +27,15 @@ namespace IdentityServer4.Extensions
             }
 
             return false;
+        }
+    }
+
+    internal static class TenantExtensions
+    {
+        [DebuggerStepThrough]
+        public static bool IsMissing(this Tenant tenant)
+        {
+            return tenant is null;
         }
     }
 }

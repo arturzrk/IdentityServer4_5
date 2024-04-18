@@ -24,5 +24,7 @@ namespace IdentityServer4.EntityFramework.Entities
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public DateTime? Updated { get; set; }
         public bool NonEditable { get; set; }
+        public Tenant Tenant { get; set; }
+        public int TenantId { get; set; }
     }
 }

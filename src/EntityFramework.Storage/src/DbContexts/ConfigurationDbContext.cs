@@ -53,6 +53,14 @@ namespace IdentityServer4.EntityFramework.DbContexts
         }
 
         /// <summary>
+        /// Gets or sets the tenants
+        /// <value>
+        /// The tenants
+        /// </value>
+        /// </summary>
+        public DbSet<Tenant> Tenants { get; set; }
+
+        /// <summary>
         /// Gets or sets the clients.
         /// </summary>
         /// <value>
@@ -106,6 +114,7 @@ namespace IdentityServer4.EntityFramework.DbContexts
         /// </remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ConfigureTenantContext(storeOptions);
             modelBuilder.ConfigureClientContext(storeOptions);
             modelBuilder.ConfigureResourcesContext(storeOptions);
 
