@@ -21,6 +21,33 @@ namespace IdentityServer4.EntityFramework.Extensions
         }
 
         /// <summary>
+        /// Configures the tenant context.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
+        /// <param name="storeOptions">The store options.</param>
+        public static void ConfigureTenantContext(this ModelBuilder modelBuilder,
+            ConfigurationStoreOptions storeOptions)
+        {
+            if (!string.IsNullOrWhiteSpace(storeOptions.DefaultSchema)) modelBuilder.HasDefaultSchema(storeOptions.DefaultSchema);
+
+            modelBuilder.Entity<Tenant>(tenant =>
+            {
+                tenant.ToTable(storeOptions.Tenant);
+                tenant.HasKey(x => x.Id);
+                tenant.Property(x => x.TenantId).IsRequired();
+                tenant.Property(x => x.TenantName).HasMaxLength(200);
+
+                tenant.HasIndex(x => x.TenantId).IsUnique();
+
+                tenant.HasMany(x => x.TenantClients).WithOne(x => x.Tenant).HasForeignKey(x => x.TenantId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                tenant.HasMany(x => x.TenantIdentityResources).WithOne(x => x.Tenant).HasForeignKey(x => x.TenantId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+        }
+        
+        
+        /// <summary>
         /// Configures the client context.
         /// </summary>
         /// <param name="modelBuilder">The model builder.</param>

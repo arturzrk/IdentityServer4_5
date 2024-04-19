@@ -32,6 +32,10 @@ namespace IdentityServer4.Models
         public string ClientId { get; set; }
 
         /// <summary>
+        /// Tenant scope of the Client
+        /// </summary>
+        public Tenant Tenant;
+        /// <summary>
         /// Gets or sets the protocol type.
         /// </summary>
         /// <value>

@@ -15,6 +15,7 @@ namespace IdentityServer4.EntityFramework.Entities
         public int Id { get; set; }
         public bool Enabled { get; set; } = true;
         public string ClientId { get; set; }
+        public Tenant Tenant;
         public string ProtocolType { get; set; } = "oidc";
         public List<ClientSecret> ClientSecrets { get; set; }
         public bool RequireClientSecret { get; set; } = true;
@@ -65,5 +66,6 @@ namespace IdentityServer4.EntityFramework.Entities
         public string UserCodeType { get; set; }
         public int DeviceCodeLifetime { get; set; } = 300;
         public bool NonEditable { get; set; }
+        public int TenantId { get; set; }
     }
 }

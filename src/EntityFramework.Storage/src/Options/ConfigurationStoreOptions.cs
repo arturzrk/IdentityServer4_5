@@ -93,12 +93,18 @@ namespace IdentityServer4.EntityFramework.Options
         /// The client property.
         /// </value>
         public TableConfiguration ApiResourceProperty { get; set; } = new TableConfiguration("ApiResourceProperties");
-
         /// <summary>
-        /// Gets or sets the client table configuration.
+        /// Gets or sets the tenant table configuration.
         /// </summary>
         /// <value>
-        /// The client.
+        /// The tenant.
+        /// </value>
+        public TableConfiguration Tenant { get; set; } = new TableConfiguration("Tenants");
+        /// <summary>
+        /// Gets or sets the type of the client grant table configuration.
+        /// </summary>
+        /// <value>
+        /// The type of the client grant.
         /// </value>
         public TableConfiguration Client { get; set; } = new TableConfiguration("Clients");
         /// <summary>

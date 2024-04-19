@@ -29,8 +29,9 @@ namespace IdentityServer4.Models
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="userClaims">List of associated user claims that should be included when this resource is requested.</param>
-        public IdentityResource(string name, IEnumerable<string> userClaims)
-            : this(name, name, userClaims)
+        /// <param name="tenant">Tenant object representing tenant scope of the IdentityResource.</param>
+        public IdentityResource(Tenant tenant, string name, IEnumerable<string> userClaims)
+            : this(tenant, name, name, userClaims)
         {
         }
 
@@ -40,13 +41,16 @@ namespace IdentityServer4.Models
         /// <param name="name">The name.</param>
         /// <param name="displayName">The display name.</param>
         /// <param name="userClaims">List of associated user claims that should be included when this resource is requested.</param>
+        /// <param name="tenant">Tenant object representing tenant scope of the IdentityResource.</param>
         /// <exception cref="System.ArgumentNullException">name</exception>
         /// <exception cref="System.ArgumentException">Must provide at least one claim type - claimTypes</exception>
-        public IdentityResource(string name, string displayName, IEnumerable<string> userClaims)
+        public IdentityResource(Tenant tenant, string name, string displayName, IEnumerable<string> userClaims)
         {
+            if (tenant.IsMissing()) throw new ArgumentNullException(nameof(tenant));
             if (name.IsMissing()) throw new ArgumentNullException(nameof(name));
             if (userClaims.IsNullOrEmpty()) throw new ArgumentException("Must provide at least one claim type", nameof(userClaims));
 
+            Tenant = tenant;
             Name = name;
             DisplayName = displayName;
 
@@ -55,6 +59,11 @@ namespace IdentityServer4.Models
                 UserClaims.Add(type);
             }
         }
+        
+        /// <summary>
+        /// Tenant scope of the IdentityResource
+        /// </summary>
+        public Tenant Tenant { get; set; }
 
         /// <summary>
         /// Specifies whether the user can de-select the scope on the consent screen (if the consent screen wants to implement such a feature). Defaults to false.
